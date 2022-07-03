@@ -1,41 +1,47 @@
 import React from "react";
 
-import * as styles from './style.css';
 
-import { Typography } from "@mui/material";
+import { Typography, Box } from "@mui/material";
 
 import dayjs from "dayjs";
 
-import { isSameDay, isSameMonth, isFirstDay } from "../../services/calendar";
+import { isSameDay, isSameMonth, isFirstDay, getMonth } from "../../services/calendar";
 
-const CalendarElement = ({day}) => {
-
-    const today = dayjs();
+const CalendarElement = ({day, month}) => {
 
     // 今月以外はグレーダウン
-    const isCurrentMonth = isSameMonth(day, today);
+    const currentMonth = getMonth(month);
+    const isCurrentMonth = isSameMonth(day, currentMonth);
     const textColor = isCurrentMonth ? "textPrimary" : "textSecondary";
-
+    
     // 月の最初はフォーマットを変える
     const format = isFirstDay(day) ? "M月D日" : "D";
-
+    
     // 当日は青い印をつける
+    const today = dayjs();
     const isToday = isSameDay(day,today);
 
     return (
-        <div className={styles.element}>
+        <Box sx={{borderRight: 1, borderBottom: 1, height: '18vh'}}>
             <Typography
-                className={styles.date}
+                sx={{py: 1, px: 0, height: 24}}
                 color={textColor}
                 align="center"
                 variant="caption"
                 component="div"
             >
-                <span className={isToday ? styles.today: ""}>
+                <Box sx={isToday ? {
+                    display: "inline-block",
+                    lineHeight: "24px",
+                    width: "24px",
+                    backgroundColor: "#1a73e8",
+                    color: "#fff",
+                    borderRadius: "50%"
+                }: {}}>
                     {day.format(format)}
-                </span>
+                </Box>
             </Typography>
-        </div>
+        </Box>
     );
 };
 

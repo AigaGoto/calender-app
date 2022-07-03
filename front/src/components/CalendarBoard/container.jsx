@@ -5,9 +5,13 @@ import CalendarBoard from "./presentation";
 // stateから必要な情報を抜き出してpropsに伝える
 const mapStateToProps = state => ({calendar: state.calendar});
 
-const mergeProps = stateProps => ({
+const mergeProps = (stateProps, dispatchProps) => {
+    console.log(stateProps)
+    
+    return ({
+    month: stateProps.calendar,
     calendar: createCalendar(stateProps.calendar)
-});
+})};
 
 // ------------------------ mergePropsを使う理由 -----------------------------
 // 

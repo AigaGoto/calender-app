@@ -1,24 +1,23 @@
 import React from "react";
 
-import {Grid, Typography} from "@mui/material"
-import * as styles from "./style.css"
+import {Grid, Typography, Box, containerClasses} from "@mui/material"
 
 import CalendarElement from "../CalendarElement"
 
 const days = ["日","月","火","水","木","金","土"];
 
-const CalendarBoard = ({calendar}) => {
+const CalendarBoard = ({calendar, month}) => {
 
-    console.log(calendar);
+    console.log(calendar)
+    console.log(month)
 
     return (
-        <div className={styles.container}>
-            <Grid container  spacing={0} columns={14} >
+        <Box sx={{height: '90vh'}}>
+            <Grid container sx={{borderTop: 1, borderLeft: 1}} spacing={0} columns={14} >
                 {days.map(d => (
                     <Grid item xs={2} key={d}>
                         <Typography
-                            className={styles.days}
-                            color="textSecondary"
+                            sx={{pt: 1.25, borderRight: 1, color: "text.secondary", }}
                             align="center"
                             variant="caption"
                             component="div"    
@@ -29,11 +28,11 @@ const CalendarBoard = ({calendar}) => {
                 ))}
                 {calendar.map((c) => (
                     <Grid item xs={2} key={c.toISOString()}>
-                        <CalendarElement day={c} />
+                        <CalendarElement day={c} month={month} />
                     </Grid>
                 ))}
             </Grid>
-        </div>
+         </Box>
     )
 };
 
