@@ -1,14 +1,15 @@
 import React from "react";
 
-import { IconButton, Toolbar, Typography } from "@mui/material";
+import { IconButton, Toolbar, Typography, TextField } from "@mui/material";
 
 import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 import DehazeIcon from '@mui/icons-material/Dehaze';
 
-const Navigation = ({setPreviousMonth, setNextMonth}) => {
+import {DatePicker} from '@mui/x-date-pickers';
 
-    console.log(setPreviousMonth)
+const Navigation = ({setPreviousMonth, setNextMonth, setMonth, month}) => {
+
 
     return (
         <Toolbar>
@@ -25,6 +26,17 @@ const Navigation = ({setPreviousMonth, setNextMonth}) => {
             <IconButton size="small" sx={{m: 1}} onClick={setNextMonth}>
                 <ArrowForwardIosIcon />
             </IconButton>
+            <DatePicker 
+                value={month}
+                onChange={setMonth}
+                inputFormat='YYYY年M月'
+                mask="____年_月"
+                renderInput={(params) => {
+                    params.inputProps.readOnly = true;
+                    console.log(params)
+                    return (<TextField {...params} sx={{maxWidth: 150}} variant='standard'  />
+                )}}
+            />
         </Toolbar>
     )
 };

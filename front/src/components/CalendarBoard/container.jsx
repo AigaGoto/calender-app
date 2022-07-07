@@ -2,16 +2,24 @@ import { connect } from "react-redux";
 import { createCalendar } from "../../services/calendar";
 import CalendarBoard from "./presentation";
 
+import { addScheduleOpenDialog, addScheduleSetValue } from "../../redux/addSchedule/actions";
+
 // stateから必要な情報を抜き出してpropsに伝える
 const mapStateToProps = state => ({calendar: state.calendar});
 
-const mergeProps = (stateProps, dispatchProps) => {
-    console.log(stateProps)
-    
-    return ({
+const mapDispatchToProps = dispatch => ({
+    openAddScheduleDialog: d => {
+        dispatch(addScheduleOpenDialog());
+        dispatch(addScheduleSetValue({date: d}));
+    }
+});
+
+const mergeProps = (stateProps, dispatchProps) => ({
+    ...stateProps,
+    ...dispatchProps,
     month: stateProps.calendar,
     calendar: createCalendar(stateProps.calendar)
-})};
+});
 
 // ------------------------ mergePropsを使う理由 -----------------------------
 // 
@@ -24,4 +32,4 @@ const mergeProps = (stateProps, dispatchProps) => {
 // これだと、予定の変更をおこなっても、カレンダーの日付生成はされず、処理が重くならずすむ
 // -------------------------------------------------------------------------
 
-export default connect(mapStateToProps, null, mergeProps)(CalendarBoard);
+export default connect(mapStateToProps, mapDispatchToProps, mergeProps)(CalendarBoard);

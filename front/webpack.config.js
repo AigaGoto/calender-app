@@ -8,7 +8,7 @@ module.exports = {
   },
   resolve: {
     modules: ["node_modules"],
-    extensions: [".js", ".jsx"]
+    extensions: ["", ".js", ".jsx", ".css"]
   },
   module: {
     rules: [
@@ -43,12 +43,19 @@ module.exports = {
         }
       },
       {
-        test: /\.css$/,
+        test: /react-datepicker.css/,
+        use: [{ 
+            loader: "style-loader"
+        }, {
+            loader: "css-loader"
+        }],
+        exclude: /src/
+      },
+      {
+        test: /\.(sass|scss|css)$/,
         exclude: /node_modules/,
         use: [
-          {
-            loader: "style-loader"
-          },
+           "style-loader",
           {
             loader: "css-loader",
             options: {
@@ -57,7 +64,8 @@ module.exports = {
                 localIdentName: "[path][name]__[local]--[hash:base64:5]"
               }
             }
-          }
+          },
+          'sass-loader'
         ]
       }
     ]
