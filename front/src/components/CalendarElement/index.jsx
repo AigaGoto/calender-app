@@ -1,12 +1,13 @@
 import React from "react";
 
-import { Typography, Box } from "@mui/material";
+import { Typography, Box ,Stack } from "@mui/material";
+import Schedule from "../Schedule";
 
 import dayjs from "dayjs";
 
 import { isSameDay, isSameMonth, isFirstDay, getMonth } from "../../services/calendar";
 
-const CalendarElement = ({day, month}) => {
+const CalendarElement = ({day, month, schedules}) => {
 
     // 今月以外はグレーダウン
     const currentMonth = getMonth(month);
@@ -40,6 +41,11 @@ const CalendarElement = ({day, month}) => {
                     {day.format(format)}
                 </Box>
             </Typography>
+            <Stack spacing={2} sx={{alignItems: "center"}}>
+                {schedules.map(schedule => (
+                    <Schedule key={schedule.id} schedule={schedule} />
+                ))}
+            </Stack>
         </Box>
     );
 };

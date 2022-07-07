@@ -30,10 +30,9 @@ const Navigation = ({setPreviousMonth, setNextMonth, setMonth, month}) => {
                 value={month}
                 onChange={setMonth}
                 inputFormat='YYYY年M月'
-                mask="____年_月"
+                disableMaskedInput
                 renderInput={(params) => {
                     params.inputProps.readOnly = true;
-                    console.log(params)
                     return (<TextField {...params} sx={{maxWidth: 150}} variant='standard'  />
                 )}}
             />

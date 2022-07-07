@@ -13,11 +13,12 @@ import {DatePicker} from '@mui/x-date-pickers';
 
 const AddScheduleDialog = ({
     schedule: {
-        form: {title, location, description,date},
+        form: {title, location, description, date},
         isDialogOpen
     }, 
     closeDialog,
-    setSchedule
+    setSchedule,
+    saveSchedule,
 }) => {
 
     return (
@@ -46,10 +47,9 @@ const AddScheduleDialog = ({
                             value={date}
                             onChange={d => setSchedule({date: d})}
                             inputFormat='YYYY年M月D日'
-                            mask="____年_月"
+                            disableMaskedInput
                             renderInput={(params) => {
                                 params.inputProps.readOnly = true;
-                                console.log(params)
                                 return (<TextField {...params} sx={{maxWidth: 150}} variant='standard' />
                             )}}
                         />
@@ -86,7 +86,7 @@ const AddScheduleDialog = ({
             </DialogContent>
             <DialogActions>
                 <Button onClick={closeDialog}>キャンセル</Button>
-                <Button onClick={closeDialog}>保存</Button>
+                <Button onClick={saveSchedule}>保存</Button>
             </DialogActions>
         </Dialog>
     );

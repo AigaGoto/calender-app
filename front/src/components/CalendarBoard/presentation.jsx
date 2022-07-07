@@ -6,7 +6,7 @@ import CalendarElement from "../CalendarElement"
 
 const days = ["日","月","火","水","木","金","土"];
 
-const CalendarBoard = ({calendar, month, openAddScheduleDialog}) => {
+const CalendarBoard = ({calendar, month, schedules, openAddScheduleDialog}) => {
 
     return (
         <Box sx={{height: '90vh'}}>
@@ -23,9 +23,9 @@ const CalendarBoard = ({calendar, month, openAddScheduleDialog}) => {
                         </Typography>
                     </Grid>
                 ))}
-                {calendar.map((c) => (
-                    <Grid item xs={2} key={c.toISOString()} onClick={() => openAddScheduleDialog(c)}>
-                        <CalendarElement day={c} month={month} />
+                {calendar.map(({date, schedules}) => (
+                    <Grid item xs={2} key={date.toISOString()} onClick={() => openAddScheduleDialog(date)}>
+                        <CalendarElement day={date} month={month} schedules={schedules}/>
                     </Grid>
                 ))}
             </Grid>
