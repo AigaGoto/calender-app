@@ -4,10 +4,10 @@ import dayjs from "dayjs"
 
 const init = {
     form: {
-        title: "",
-        description: "",
+        title: "会議",
+        description: "めんどくさい",
         date: dayjs(),
-        location: ""
+        location: "家"
     },
     isDialogOpen: false
 };

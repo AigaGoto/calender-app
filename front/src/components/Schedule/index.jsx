@@ -10,12 +10,13 @@ const Item = styled(Paper)(() => ({
   borderRadius: "4px",
   padding: "1px 4px",
   width: "85%",
-  fontSize: "14px"
+  fontSize: "14px",
+  cursor: "pointer",
 }));
 
-const Schedule = ({schedule}) => {
+const Schedule = ({schedule, onClickSchedule}) => {
     return (
-        <Item>{schedule.title}</Item>
+        <Item onClick={e => onClickSchedule(schedule, e)}>{schedule.title}</Item>
     )
 }
 

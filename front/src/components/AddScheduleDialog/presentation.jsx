@@ -7,6 +7,7 @@ import LocationOnIcon from '@mui/icons-material/LocationOn';
 import NotesIcon from '@mui/icons-material/Notes';
 import AccessTimeIcon from '@mui/icons-material/AccessTime';
 import CloseIcon from '@mui/icons-material/Close';
+import DeleteIcon from '@mui/icons-material/Delete';
 
 import {DatePicker} from '@mui/x-date-pickers';
 
@@ -24,6 +25,9 @@ const AddScheduleDialog = ({
     return (
         <Dialog open={isDialogOpen} onClose={closeDialog} maxWidth="xs" fullWidth={true}>
             <DialogActions>
+                <IconButton onClick={closeDialog}>
+                    <DeleteIcon />
+                </IconButton>
                 <IconButton onClick={closeDialog}>
                     <CloseIcon />
                 </IconButton>

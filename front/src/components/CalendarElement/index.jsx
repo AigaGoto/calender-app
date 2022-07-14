@@ -7,7 +7,7 @@ import dayjs from "dayjs";
 
 import { isSameDay, isSameMonth, isFirstDay, getMonth } from "../../services/calendar";
 
-const CalendarElement = ({day, month, schedules}) => {
+const CalendarElement = ({day, month, schedules, ...props}) => {
 
     // 今月以外はグレーダウン
     const currentMonth = getMonth(month);
@@ -43,7 +43,7 @@ const CalendarElement = ({day, month, schedules}) => {
             </Typography>
             <Stack spacing={2} sx={{alignItems: "center"}}>
                 {schedules.map(schedule => (
-                    <Schedule key={schedule.id} schedule={schedule} />
+                    <Schedule key={schedule.id} schedule={schedule} {...props}/>
                 ))}
             </Stack>
         </Box>

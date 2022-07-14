@@ -3,7 +3,10 @@ import { createCalendar } from "../../services/calendar";
 import CalendarBoard from "./presentation";
 
 import { addScheduleOpenDialog, addScheduleSetValue } from "../../redux/addSchedule/actions";
+import { currentScheduleOpenDialog, currentScheduleSetItem } from "../../redux/currentSchedule/actions";
 import { setSchedules } from "../../services/schedule";
+
+import { asyncSchedulesFetchItem } from "../../redux/schedules/effects";
 
 // stateから必要な情報を抜き出してpropsに伝える
 const mapStateToProps = state => ({
@@ -15,6 +18,15 @@ const mapDispatchToProps = dispatch => ({
     openAddScheduleDialog: d => {
         dispatch(addScheduleOpenDialog());
         dispatch(addScheduleSetValue({date: d}));
+    },
+    openCurrentScheduleDialog: (schedule, e) => {
+        e.stopPropagation();
+
+        dispatch(currentScheduleOpenDialog())
+        dispatch(currentScheduleSetItem(schedule))
+    },
+    fetchSchedule: month => {
+        dispatch(asyncSchedulesFetchItem(month))
     }
 });
 
@@ -32,7 +44,8 @@ const mergeProps = (stateProps, dispatchProps) => {
         ...stateProps,
         ...dispatchProps,
         month,
-        calendar
+        calendar,
+        fetchSchedule: () => dispatchProps.fetchSchedule(month),
     }
 };
 
