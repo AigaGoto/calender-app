@@ -1,7 +1,6 @@
-import { schedulesSetLoading, schedulesFetchItem, schedulesAddItem } from "./actions";
-import {get, post} from "../../services/api"
+import { schedulesSetLoading, schedulesFetchItem, schedulesAddItem, schedulesDeleteItem } from "./actions";
+import {deleteRequest, get, post} from "../../services/api"
 import {formatSchedule} from "../../services/schedule";
-import { getCheckboxUtilityClass } from "@mui/material";
 
 export const asyncSchedulesFetchItem = ({month, year}) => async dispatch => {
     dispatch(schedulesSetLoading());
@@ -23,10 +22,14 @@ export const asyncSchedulesAddItem = schedule => async dispatch => {
     dispatch(schedulesAddItem(newSchedule));
 }
 
-export const deleteRequest = async path => {
-    const options = {method: "DELETE"};
+export const asyncScheduleDeleteItem = id => async (dispatch, getState) => {
+    dispatch(schedulesSetLoading());
+    const currentSchedules = getState().schedules.items;
 
-    await fetch(utl(path), options);
+    // サーバー内での削除
+    await deleteRequest(`schedules/${id}`);
 
-    return
+    // フロント上での削除
+    const newSchedule = currentSchedules.filter(s => s.id !== id)
+    dispatch(schedulesDeleteItem(newSchedule))
 }

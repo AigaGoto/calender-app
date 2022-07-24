@@ -1,13 +1,12 @@
-import React from "react";
+import React, { useState } from "react";
 
 import { Dialog, DialogContent, DialogActions,
-    TextField, Button, Grid, Input, IconButton} from "@mui/material";
+    TextField, Button, Grid, Input, IconButton, Typography, Box} from "@mui/material";
 
 import LocationOnIcon from '@mui/icons-material/LocationOn';
 import NotesIcon from '@mui/icons-material/Notes';
 import AccessTimeIcon from '@mui/icons-material/AccessTime';
 import CloseIcon from '@mui/icons-material/Close';
-import DeleteIcon from '@mui/icons-material/Delete';
 
 import {DatePicker} from '@mui/x-date-pickers';
 
@@ -15,19 +14,21 @@ import {DatePicker} from '@mui/x-date-pickers';
 const AddScheduleDialog = ({
     schedule: {
         form: {title, location, description, date},
-        isDialogOpen
+        isDialogOpen,
+        isStartEdit,
     }, 
     closeDialog,
     setSchedule,
     saveSchedule,
+    setIsEditStart,
 }) => {
+
+    // タイトルに何も入力がない時のバリデーション
+    const isTitleValid = !title && isStartEdit
 
     return (
         <Dialog open={isDialogOpen} onClose={closeDialog} maxWidth="xs" fullWidth={true}>
             <DialogActions>
-                <IconButton onClick={closeDialog}>
-                    <DeleteIcon />
-                </IconButton>
                 <IconButton onClick={closeDialog}>
                     <CloseIcon />
                 </IconButton>
@@ -38,10 +39,20 @@ const AddScheduleDialog = ({
                     fullWidth 
                     placeholder="タイトルと日時を追加" 
                     margin="dense"
-                    sx={{fontSize: 24, mb: 4}}
+                    sx={{fontSize: 24}}
                     value={title}
                     onChange={e => setSchedule({title: e.target.value})}
+                    onBlur={setIsEditStart}
+                    error={isTitleValid}
                 />
+                <Box sx={{height: "32px"}}>
+                {isTitleValid && (
+                    <Typography variant="caption" component="div" color="error" >
+                        タイトルは必須です
+                    </Typography>
+                )}
+                </Box>
+                
                 <Grid container spacing={1} sx={{my: 1, justifyContent: "space-between", alignItems: "center"}} >
                     <Grid item>
                         <AccessTimeIcon color="primary" fontSize="large"/>

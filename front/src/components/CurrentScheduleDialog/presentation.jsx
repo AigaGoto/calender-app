@@ -7,16 +7,21 @@ import LocationOnIcon from '@mui/icons-material/LocationOn';
 import CircleIcon from '@mui/icons-material/Circle';
 import NotesIcon from '@mui/icons-material/Notes';
 import CloseIcon from '@mui/icons-material/Close';
+import DeleteIcon from '@mui/icons-material/Delete';
 
 
 const CurrentScheduleDialog = ({
     schedule: {item, isDialogOpen},
-    closeDialog
+    closeDialog,
+    deleteItem
 }) => {
 
     return (
         <Dialog open={isDialogOpen} onClose={closeDialog} maxWidth="xs" fullWidth>
             <DialogActions>
+                <IconButton onClick={deleteItem}>
+                    <DeleteIcon />
+                </IconButton>
                 <IconButton onClick={closeDialog}>
                     <CloseIcon />
                 </IconButton>

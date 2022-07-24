@@ -20,6 +20,7 @@ const mapDispatchToProps = dispatch => ({
         dispatch(addScheduleSetValue({date: d}));
     },
     openCurrentScheduleDialog: (schedule, e) => {
+        // openAddScheduleDialogが動作するのを防ぐ処理
         e.stopPropagation();
 
         dispatch(currentScheduleOpenDialog())
